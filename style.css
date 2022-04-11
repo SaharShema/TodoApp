@@ -24,15 +24,20 @@ i {
 
 header,
 form {
-    height: 10vh;
     background: #0a1a2b;
     position: sticky;
     top: 0;
     z-index: 10;
 }
 
+header {
+    flex-direction: column;
+    height: 19vh;
+    margin-bottom: .6rem;
+}
+
 article {
-    min-height: 75vh;
+    min-height: 65vh;
 }
 
 header h1 {
@@ -66,6 +71,7 @@ form input {
     outline: none;
 }
 
+form,
 form input,
 .todo-list,
 .done-list {
