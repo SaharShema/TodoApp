@@ -38,6 +38,7 @@ header {
 
 article {
     min-height: 65vh;
+    overflow: hidden;
 }
 
 header h1 {
