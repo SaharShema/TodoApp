@@ -1,0 +1,177 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Anek Gujarati', sans-serif;
+}
+
+body {
+    background: linear-gradient(158deg, #0a1a2b, #486686) fixed;
+}
+
+h2 {
+    padding: 3rem;
+    text-align: center;
+    color: white;
+}
+
+i {
+    pointer-events: none;
+}
+
+header,
+form {
+    height: 10vh;
+    background: #0a1a2b;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+article {
+    min-height: 75vh;
+}
+
+header h1 {
+    font-weight: 600;
+    font-size: 2.5rem;
+    color: white;
+}
+
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-container {
+    max-width: 1100px;
+    margin: auto;
+
+}
+
+form button,
+form input {
+    font-family: 'Anek Gujarati', sans-serif;
+    font-weight: 200;
+    font-size: 1.75rem;
+    border: none;
+    padding: .9rem;
+    padding-bottom: .5rem;
+    align-content: center;
+    outline: none;
+}
+
+form input,
+.todo-list,
+.done-list {
+    width: 100%;
+    max-width: 1100px;
+}
+
+form button {
+    cursor: pointer;
+    background: white;
+    color: #486686;
+    transition: color 0.5s ease;
+}
+
+form button:hover {
+    color: rgb(80, 97, 136);
+}
+
+.todo-item {
+    font-size: 1.2rem;
+    background-color: rgba(255, 255, 255, 0.623);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.5s, transform 0.5s, opacity 0.5s;
+    animation: shake 0.5s 1;
+    margin: 4px;
+    border-radius: 2px;
+}
+
+@keyframes shake {
+
+    25% {
+        transform: rotateZ(0.5deg);
+    }
+
+    50% {
+        transform: rotateZ(-0.5deg);
+    }
+}
+
+.todo-item:hover {
+    background-color: rgba(219, 219, 219, 0.945);
+}
+
+.todo-item li {
+    flex: 1;
+    padding-left: 1rem;
+    pointer-events: none;
+
+}
+
+
+.trash-btn {
+    border: none;
+    font-size: 1.2rem;
+    color: rgb(34, 33, 33);
+    padding: 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    transition: color 0.5s;
+}
+
+.trash-btn:hover {
+    color: rgb(85, 85, 85);
+}
+
+
+.trashed {
+    transform: translatex(100rem);
+    opacity: 0;
+}
+
+.checked {
+    text-decoration: line-through;
+    opacity: 20%;
+}
+
+
+
+
+/* footer */
+footer {
+    background-color: white;
+    bottom: 0;
+    width: 100%;
+    display: grid;
+    text-align: center;
+    gap: .7rem;
+    padding: 10px;
+    margin-top: 2.5rem;
+}
+
+footer li {
+    display: inline-block;
+}
+
+footer i {
+    color: rgb(22 41 61);
+    padding: 5px;
+    border-radius: 0.2rem;
+    font-size: 2rem;
+    transition: color 0.2s ease-in;
+}
+
+footer li:hover i {
+    color: rgb(65, 85, 107);
+}
