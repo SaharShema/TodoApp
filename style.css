@@ -121,13 +121,15 @@ form button:hover {
 
 .todo-item li {
     flex: 1;
-    padding-left: 1rem;
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
     pointer-events: none;
-
+    border-radius: .5rem;
 }
 
 
-.trash-btn {
+.trash-btn,
+.edit-btn {
     border: none;
     font-size: 1.2rem;
     color: rgb(34, 33, 33);
@@ -135,9 +137,12 @@ form button:hover {
     cursor: pointer;
     background-color: transparent;
     transition: color 0.5s;
+    pointer-events: all;
+
 }
 
-.trash-btn:hover {
+.trash-btn:hover,
+.edit-btn:hover {
     color: rgb(85, 85, 85);
 }
 
@@ -152,6 +157,18 @@ form button:hover {
     opacity: 20%;
 }
 
+.editing {
+    pointer-events: none;
+    opacity: 1;
+    background-color: rgba(219, 219, 219, 0.945);
+
+}
+
+.editing li {
+    background-color: rgb(255, 255, 255);
+    pointer-events: all;
+
+}
 
 
 

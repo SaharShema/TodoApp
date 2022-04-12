@@ -65,10 +65,11 @@ function checkAndTrash(eve) {
 
     // Trash Optoin
     if (item.classList[0] === 'trash-btn') {
-        item.parentElement.classList.add('trashed');
+        const todoItem = item.parentElement;
 
-        item.parentElement.addEventListener('transitionend', function () {
-            const todoItem = item.parentElement;
+        todoItem.classList.add('trashed');
+
+        todoItem.addEventListener('transitionend', function () {
             if (todoItem.parentElement === todoList) {
                 removeTodo(lstTodo, todoItem);
                 localStorage.setItem("lstTodo", JSON.stringify(lstTodo));
@@ -79,6 +80,37 @@ function checkAndTrash(eve) {
             }
             todoItem.remove();
         });
+    }
+    // Edit Option
+    else if (item.classList[0] === 'edit-btn') {
+        const todoItem = item.parentElement;
+        const todoLi = todoItem.children[1];
+        const todoEditSaveIcon = todoItem.children[0].querySelector('i');
+
+        if (todoLi.contentEditable === "true") {
+            todoEditSaveIcon.classList.add('fa-pencil');
+            todoEditSaveIcon.classList.remove('fa-floppy-disk');
+
+            if (todoItem.parentElement === todoList) {
+                lstTodo[lstTodo.indexOf(todoLi.Title)] = todoLi.innerText;
+                localStorage.setItem("lstTodo", JSON.stringify(lstTodo));
+            }
+            else if (todoItem.parentElement === doneList) {
+                lstDone[lstDone.indexOf(todoLi.Title)] = todoLi.innerText;
+                localStorage.setItem("lstDone", JSON.stringify(lstDone));
+            }
+
+            todoLi.contentEditable = false;
+            todoItem.classList.remove('editing');
+        }
+        else {
+            todoEditSaveIcon.classList.remove('fa-pencil');
+            todoEditSaveIcon.classList.add('fa-floppy-disk');
+            todoLi.contentEditable = true;
+
+            todoLi.Title = todoItem.innerText;
+            todoItem.classList.add('editing');
+        }
     }
     // Check Option
     else if (item.classList[0] === 'todo-item') {
@@ -110,10 +142,19 @@ function addTodo(ulLstTarget, todoValue) {
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo-item');
 
+
+    // Edit Btn
+    const editBtn = document.createElement('button');
+    editBtn.classList.add('edit-btn');
+    editBtn.innerHTML = '<i class="fa-solid fa-pencil"></i>';
+    todoDiv.appendChild(editBtn);
+
     // Todo Text
-    const todo = document.createElement('li');
-    todo.innerText = todoValue;
-    todoDiv.appendChild(todo);
+    const todoLi = document.createElement('li');
+    todoLi.contentEditable = false;
+    todoLi.innerText = todoValue;
+
+    todoDiv.appendChild(todoLi);
 
     // Delete Btn
     const trashBtn = document.createElement('button');
@@ -127,13 +168,12 @@ function addTodo(ulLstTarget, todoValue) {
 }
 
 function removeTodo(lstTarget, todo) {
-    const todoValue = todo.children[0].innerText;
+    const todoValue = todo.children[1].innerText;
 
     lstTarget.splice(lstTarget.indexOf(todoValue), 1);
 
     return todoValue;
 }
-
 
 function getUserName() {
     if (localStorage.getItem('userName')) {
