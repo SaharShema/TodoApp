@@ -22,8 +22,7 @@ i {
     pointer-events: none;
 }
 
-header,
-form {
+header {
     background: #0a1a2b;
     position: sticky;
     top: 0;
@@ -32,7 +31,7 @@ form {
 
 header {
     flex-direction: column;
-    height: 19vh;
+    min-height: 19vh;
     margin-bottom: .6rem;
 }
 
@@ -43,8 +42,9 @@ article {
 
 header h1 {
     font-weight: 600;
-    font-size: 2.5rem;
+    /* font-size: 2.5rem; */
     color: white;
+    text-align: center;
 }
 
 
@@ -181,4 +181,52 @@ footer i {
 
 footer li:hover i {
     color: rgb(65, 85, 107);
+}
+
+
+/* helloDiv */
+.hello-div {
+    z-index: 20;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hello-div div {
+    background-color: white;
+    border-radius: .5rem;
+    text-align: center;
+    display: grid;
+    align-content: center;
+    padding: 3rem;
+    margin: 1rem;
+}
+
+.hello-div input {
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 1.5rem;
+}
+
+.userName-button {
+    background-color: #0a1a2b;
+    color: white;
+    border-radius: 1rem;
+    padding: 0 5rem;
+    transition: background-color .5s ease;
+}
+
+.userName-button:hover {
+    background-color: #274058;
+    color: white;
+}
+
+.hide {
+    display: none;
 }

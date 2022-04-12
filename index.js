@@ -4,9 +4,22 @@ const todoAdd = document.querySelector('.todo-add');
 const todoList = document.querySelector('.todo-list');
 const doneList = document.querySelector('.done-list');
 
+const helloDiv = document.querySelector('.hello-div');
+const userName = document.querySelector('.userName');
+const userNameInput = document.querySelector('.userName-input');
+const userNamebutton = document.querySelector('.userName-button');
+
+
+
 
 // Events
 document.addEventListener("DOMContentLoaded", getLocalTodos);
+
+document.addEventListener("DOMContentLoaded", getUserName);
+userNamebutton.addEventListener("click", newUserName);
+userName.addEventListener("click", () => helloDiv.classList.remove('hide'));
+
+
 todoAdd.addEventListener("click", addNewTodo);
 todoList.addEventListener("click", checkAndTrash)
 doneList.addEventListener("click", checkAndTrash)
@@ -14,6 +27,24 @@ doneList.addEventListener("click", checkAndTrash)
 
 // Functions
 let lstTodo, lstDone;
+
+function getLocalTodos() {
+    if (localStorage.getItem('lstTodo'))
+        lstTodo = JSON.parse(localStorage.getItem('lstTodo'));
+    else lstTodo = [];
+
+    if (localStorage.getItem('lstDone'))
+        lstDone = JSON.parse(localStorage.getItem('lstDone'));
+    else lstDone = [];
+
+
+    lstTodo.forEach(element => {
+        addTodo(todoList, element);
+    });
+    lstDone.forEach(element => {
+        addTodo(doneList, element);
+    });
+}
 
 function addNewTodo(eve) {
     eve.preventDefault();
@@ -27,26 +58,6 @@ function addNewTodo(eve) {
         todoInput.value = '';
         todoInput.focus();
     }
-}
-
-function addTodo(ulLstTarget, todoValue) {
-    const todoDiv = document.createElement('div');
-    todoDiv.classList.add('todo-item');
-
-    // Todo Text
-    const todo = document.createElement('li');
-    todo.innerText = todoValue;
-    todoDiv.appendChild(todo);
-
-    // Delete Btn
-    const trashBtn = document.createElement('button');
-    trashBtn.classList.add('trash-btn');
-    trashBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
-    todoDiv.appendChild(trashBtn);
-
-    // Adding To The List
-    if (ulLstTarget === doneList) todoDiv.classList.add('checked');
-    ulLstTarget.appendChild(todoDiv);
 }
 
 function checkAndTrash(eve) {
@@ -94,22 +105,25 @@ function checkAndTrash(eve) {
 
 }
 
-function getLocalTodos() {
-    if (localStorage.getItem('lstTodo'))
-        lstTodo = JSON.parse(localStorage.getItem('lstTodo'));
-    else lstTodo = [];
 
-    if (localStorage.getItem('lstDone'))
-        lstDone = JSON.parse(localStorage.getItem('lstDone'));
-    else lstDone = [];
+function addTodo(ulLstTarget, todoValue) {
+    const todoDiv = document.createElement('div');
+    todoDiv.classList.add('todo-item');
 
+    // Todo Text
+    const todo = document.createElement('li');
+    todo.innerText = todoValue;
+    todoDiv.appendChild(todo);
 
-    lstTodo.forEach(element => {
-        addTodo(todoList, element);
-    });
-    lstDone.forEach(element => {
-        addTodo(doneList, element);
-    });
+    // Delete Btn
+    const trashBtn = document.createElement('button');
+    trashBtn.classList.add('trash-btn');
+    trashBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+    todoDiv.appendChild(trashBtn);
+
+    // Adding To The List
+    if (ulLstTarget === doneList) todoDiv.classList.add('checked');
+    ulLstTarget.appendChild(todoDiv);
 }
 
 function removeTodo(lstTarget, todo) {
@@ -121,4 +135,26 @@ function removeTodo(lstTarget, todo) {
 }
 
 
+function getUserName() {
+    if (localStorage.getItem('userName')) {
+        userName.innerText = localStorage.getItem('userName');
+        helloDiv.classList.add('hide');
+    }
+    else {
+        userNameInput.focus()
+    }
+}
+
+function newUserName(e) {
+    e.preventDefault();
+    if (/[A-Za-z]{2,12}/g.test(userNameInput.value)) {
+        const afterFilter = /[A-Za-z]{2,12}/g.exec(userNameInput.value)[0];
+
+        userName.innerText = afterFilter;
+        userNameInput.value = afterFilter;
+        localStorage.setItem("userName", userNameInput.value);
+
+        helloDiv.classList.add('hide');
+    }
+}
 
