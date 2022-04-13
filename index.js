@@ -5,6 +5,7 @@ const todoList = document.querySelector('.todo-list');
 const doneList = document.querySelector('.done-list');
 
 const helloDiv = document.querySelector('.hello-div');
+const helloDivShadow = document.querySelector('.hello-div-shadow');
 const userName = document.querySelector('.userName');
 const userNameInput = document.querySelector('.userName-input');
 const userNamebutton = document.querySelector('.userName-button');
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", getLocalTodos);
 document.addEventListener("DOMContentLoaded", getUserName);
 userNamebutton.addEventListener("click", newUserName);
 userName.addEventListener("click", () => helloDiv.classList.remove('hide'));
-
+helloDivShadow.addEventListener("click", () => helloDiv.classList.add('hide'));
 
 todoAdd.addEventListener("click", addNewTodo);
 todoList.addEventListener("click", checkAndTrash)
@@ -48,6 +49,7 @@ function getLocalTodos() {
     lstDone.forEach(element => {
         addTodo(doneList, element);
     });
+    checkIfDoneIsEmpty();
 }
 
 function addNewTodo(eve) {
@@ -81,6 +83,7 @@ function checkAndTrash(eve) {
             else if (todoItem.parentElement === doneList) {
                 removeTodo(lstDone, todoItem);
                 localStorage.setItem("lstDone", JSON.stringify(lstDone));
+                checkIfDoneIsEmpty();
             }
             todoItem.remove();
         });
@@ -96,11 +99,11 @@ function checkAndTrash(eve) {
             todoEditSaveIcon.classList.remove('fa-floppy-disk');
 
             if (todoItem.parentElement === todoList) {
-                lstTodo[lstTodo.indexOf(todoLi.Title)] = todoLi.innerText;
+                lstTodo[lstTodo.indexOf(todoLi.Title)] = todoLi.innerText = todoLi.innerText.trim();
                 localStorage.setItem("lstTodo", JSON.stringify(lstTodo));
             }
             else if (todoItem.parentElement === doneList) {
-                lstDone[lstDone.indexOf(todoLi.Title)] = todoLi.innerText;
+                lstDone[lstDone.indexOf(todoLi.Title)] = todoLi.innerText = todoLi.innerText.trim();
                 localStorage.setItem("lstDone", JSON.stringify(lstDone));
             }
 
@@ -134,7 +137,7 @@ function checkAndTrash(eve) {
 
             item.classList.remove('checked');
         }
-
+        checkIfDoneIsEmpty();
         localStorage.setItem("lstTodo", JSON.stringify(lstTodo));
         localStorage.setItem("lstDone", JSON.stringify(lstDone));
     }
@@ -185,20 +188,33 @@ function getUserName() {
         helloDiv.classList.add('hide');
     }
     else {
-        userNameInput.focus()
+        userNameInput.focus();
+        helloDivShadow.classList.add('non-event');
+
     }
 }
 
 function newUserName(e) {
     e.preventDefault();
-    if (/[A-Za-z]{2,12}/g.test(userNameInput.value)) {
-        const afterFilter = /[A-Za-z]{2,12}/g.exec(userNameInput.value)[0];
+    if (/[A-Za-zא-ת]{2,12}/g.test(userNameInput.value)) {
+        userNameInput.classList.remove("error-input");
+
+        const afterFilter = /[A-Za-zא-ת]{2,12}/g.exec(userNameInput.value)[0];
 
         userName.innerText = afterFilter;
         userNameInput.value = afterFilter;
         localStorage.setItem("userName", userNameInput.value);
 
         helloDiv.classList.add('hide');
+        helloDivShadow.classList.remove('non-event');
+
     }
+    else userNameInput.classList.add("error-input");
+
+}
+
+function checkIfDoneIsEmpty() {
+    if (lstDone.length === 0) doneList.parentElement.classList.add("hide");
+    else doneList.parentElement.classList.remove("hide");
 }
 

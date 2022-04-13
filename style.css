@@ -18,7 +18,8 @@ h2 {
     color: white;
 }
 
-i {
+i,
+.non-event {
     pointer-events: none;
 }
 
@@ -209,13 +210,19 @@ footer li:hover i {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.hello-div div {
+.hello-div-shadow {
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+}
+
+.hello-div-box {
+    position: absolute;
     background-color: white;
     border-radius: .5rem;
     text-align: center;
@@ -225,7 +232,7 @@ footer li:hover i {
     margin: 1rem;
 }
 
-.hello-div input {
+.hello-div-box input {
     text-align: center;
     margin: 2rem 0;
     font-size: 1.5rem;
@@ -242,6 +249,10 @@ footer li:hover i {
 .userName-button:hover {
     background-color: #274058;
     color: white;
+}
+
+.error-input {
+    border: 1px solid red;
 }
 
 .hide {
