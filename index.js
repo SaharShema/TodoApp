@@ -10,6 +10,7 @@ const userName = document.querySelector('.userName');
 const userNameInput = document.querySelector('.userName-input');
 const userNamebutton = document.querySelector('.userName-button');
 
+const clearDataButton = document.querySelector('.clear-data-btn');
 
 
 
@@ -25,6 +26,7 @@ todoAdd.addEventListener("click", addNewTodo);
 todoList.addEventListener("click", checkAndTrash)
 doneList.addEventListener("click", checkAndTrash)
 
+clearDataButton.addEventListener("click", clearAllData);
 
 // Functions
 let lstTodo, lstDone;
@@ -32,6 +34,7 @@ let lstTodo, lstDone;
 function getLocalTodos() {
     if (!localStorage.getItem('userName')) {
         localStorage.setItem("lstTodo", JSON.stringify(["First ToDo!"]));
+        localStorage.setItem("lstDone", JSON.stringify(["Done ToDo!"]));
     }
 
     if (localStorage.getItem('lstTodo'))
@@ -218,3 +221,9 @@ function checkIfDoneIsEmpty() {
     else doneList.parentElement.classList.remove("hide");
 }
 
+function clearAllData() {
+    if (confirm('Are you Sure? All the data will be arased!')) {
+        localStorage.clear();
+        location.reload();
+    }
+}
