@@ -29,6 +29,10 @@ doneList.addEventListener("click", checkAndTrash)
 let lstTodo, lstDone;
 
 function getLocalTodos() {
+    if (!localStorage.getItem('userName')) {
+        localStorage.setItem("lstTodo", JSON.stringify(["First ToDo!"]));
+    }
+
     if (localStorage.getItem('lstTodo'))
         lstTodo = JSON.parse(localStorage.getItem('lstTodo'));
     else lstTodo = [];
