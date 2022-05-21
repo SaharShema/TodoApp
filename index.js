@@ -222,7 +222,7 @@ function checkIfDoneIsEmpty() {
 }
 
 function clearAllData() {
-    if (confirm('Are you Sure? All the data will be arased!')) {
+    if (confirm('Are you Sure? All the data will be erased!')) {
         localStorage.clear();
         location.reload();
     }
